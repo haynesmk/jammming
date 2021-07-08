@@ -4,6 +4,7 @@ import React from 'react';
 import { SearchBar } from '../SearchBar/SearchBar';
 import { SearchResults } from '../SearchResults/SearchResults';
 import { Playlist } from '../Playlist/Playlist';
+import { Spotify } from '../../util/Spotify';
 
 
 class App extends React.Component {
@@ -15,11 +16,10 @@ class App extends React.Component {
     this.savePlaylist = this.savePlaylist.bind(this);
     this.search = this.search.bind(this);
     this.state = {
-      searchResults: [{name: 'Money', artist: 'Pink Floyd', album: 'The Wall', id: 1, uri: 'test/my/uri/1'},
-                      {name: 'Karma Police', artist: 'Radiohead', album: 'OK Computer', id: 2, uri: 'test/my/uri/2'},
-                      {name: 'Hotel California', artist: 'The Eagles', album: 'Hotel California', id: 3, uri: 'test/my/uri/3'}],
+      searchResults: [],
       playlistTracks: [],
       playlistName: '',
+      accessToken: ''
     }
   }
 
@@ -63,17 +63,26 @@ class App extends React.Component {
   }
 
   savePlaylist() {
-    let trackURIs = [];
+    let trackURIs = '';
     let tracks = this.state.playlistTracks;
     for(let i=0; i<tracks.length; i++) {
-      trackURIs.push(tracks[i].uri);
+      trackURIs += `${tracks[i].uri},`;
     }
-    alert(trackURIs);
+    Spotify.savePlaylist(this.state.playlistName, trackURIs);
+    alert(`Playlist ${this.state.playlistName} has been saved to Spotify!`);
     /***TODO*** SAVE tracks TO SPOTIFY ACCT */
   }
 
   search(searchTerm) {
-    console.log(searchTerm)
+    Spotify.search(searchTerm).then(results => {
+      this.setState({
+      searchResults: results
+      });
+    });
+  }
+
+  componentDidMount() {
+    Spotify.getAccessToken();
   }
 
   render() {

@@ -8,7 +8,6 @@ export class Track extends React.Component {
     }
 
     renderAction() {
-        let isRemoval = false;
         if(this.props.isRemoval) {
             return <button className="Track-action" onClick={this.removeTrack}>-</button>;
         } else {
