@@ -1,6 +1,6 @@
 
 const clientID = '7f856c6da20d4509a380d58c450625ad';
-const redirectURI = 'http://winston-jammming.surge.sh/';
+const redirectURI = 'http://winston-jammming.surge.sh';
 
 let accessToken;
 
@@ -19,7 +19,8 @@ export const Spotify = {
             window.history.pushState('Access Token', null, '/');
             return urlToken;
         } else {
-            const redirectURL = 'https://accounts.spotify.com/authorize?client_id='+clientID+'&response_type=token&scope=playlist-modify-public&redirect_uri='+redirectURI;
+            const redirectURL = 'https://accounts.spotify.com/authorize?client_id='+
+                clientID+'&response_type=token&scope=playlist-modify-public&redirect_uri='+redirectURI;
             window.location.replace(redirectURL);
         }
 
