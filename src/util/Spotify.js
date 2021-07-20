@@ -1,6 +1,7 @@
 
 const clientID = '7f856c6da20d4509a380d58c450625ad';
-const redirectURI = 'http://winston-jammming.surge.sh';
+const redirectURI = 'http://localhost:3000';
+//const redirectURI = 'http://winston-jammming.surge.sh';
 
 let accessToken;
 
